@@ -3,6 +3,6 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://wilfultortoise-sudo.github.io',
-  base: '/rafiki',
+  //site: 'https://wilfultortoise-sudo.github.io',
+  //base: '/rafiki',
 });
