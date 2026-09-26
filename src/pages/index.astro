@@ -3,10 +3,22 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const posts = await getCollection("blog");
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout title="Mi Blog">
   <section class="hero">
+    <p id="random-quote"></p>
+
+    <script is:inline>
+      const frases = [
+        "El código que no se prueba, no funciona.",
+        "Simplicidad es la máxima sofisticación.",
+        "Primero hazlo funcionar, luego hazlo bonito.",
+      ];
+      document.getElementById('random-quote').textContent =
+        frases[Math.floor(Math.random() * frases.length)];
+    </script>
     <div class="hero-contenido">
       <p class="etiqueta">MI BLOG PERSONAL</p>
 
@@ -20,7 +32,7 @@ const posts = await getCollection("blog");
         aprendiendo sobre programación y desarrollo de software.
       </p>
 
-      <a href="/blog/" class="boton">
+      <a href={`${base}blog/`} class="boton">
         Explorar publicaciones
       </a>
     </div>
@@ -33,7 +45,7 @@ const posts = await getCollection("blog");
         <h2>Últimas publicaciones</h2>
       </div>
 
-      <a href="/blog/" class="ver-todas">
+      <a href={`${base}blog/`} class="ver-todas">
         Ver todas →
       </a>
     </div>
@@ -41,7 +53,7 @@ const posts = await getCollection("blog");
     <div class="grid">
       {
         posts.map((post) => (
-          <a href={`/blog/${post.id}/`} class="tarjeta">
+          <a href={`${base}blog/${post.id}/`} class="tarjeta">
             <img
               src={post.data.image.src}
               alt={post.data.title}
@@ -74,8 +86,9 @@ const posts = await getCollection("blog");
     margin-bottom: 70px;
     padding: 80px 40px;
     border-radius: 20px;
-    background: white;
-    border: 1px solid #e5e5e5;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
   }
 
   .hero-contenido {
@@ -87,7 +100,7 @@ const posts = await getCollection("blog");
     font-size: 0.8rem;
     font-weight: bold;
     letter-spacing: 2px;
-    color: #777;
+    color: var(--muted-text-light);
   }
 
   h1 {
@@ -99,7 +112,7 @@ const posts = await getCollection("blog");
 
   h1 span {
     display: block;
-    color: #555;
+    color: var(--accent-text);
   }
 
   .descripcion {
@@ -107,15 +120,15 @@ const posts = await getCollection("blog");
     margin: 25px 0;
     font-size: 1.1rem;
     line-height: 1.7;
-    color: #666;
+    color: var(--muted-text);
   }
 
   .boton {
     display: inline-block;
     padding: 13px 22px;
     border-radius: 10px;
-    background: #222;
-    color: white;
+    background: var(--button-bg);
+    color: var(--button-text);
     text-decoration: none;
     font-weight: bold;
     transition:
@@ -125,7 +138,7 @@ const posts = await getCollection("blog");
 
   .boton:hover {
     transform: translateY(-3px);
-    background: #444;
+    background: var(--button-hover-bg);
   }
 
   .publicaciones {
@@ -145,7 +158,7 @@ const posts = await getCollection("blog");
   }
 
   .ver-todas {
-    color: #555;
+    color: var(--accent-text);
     text-decoration: none;
     font-weight: bold;
   }
@@ -163,14 +176,16 @@ const posts = await getCollection("blog");
   .tarjeta {
     overflow: hidden;
     display: block;
-    background: white;
-    border: 1px solid #e5e5e5;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: 15px;
     color: inherit;
     text-decoration: none;
     transition:
       transform 0.25s ease,
-      box-shadow 0.25s ease;
+      box-shadow 0.25s ease,
+      background-color 0.2s ease,
+      border-color 0.2s ease;
   }
 
   .tarjeta:hover {
@@ -197,7 +212,7 @@ const posts = await getCollection("blog");
   .fecha {
     margin: 0 0 10px;
     font-size: 0.85rem;
-    color: #888;
+    color: var(--muted-text-light);
   }
 
   .tarjeta h3 {
@@ -207,13 +222,13 @@ const posts = await getCollection("blog");
 
   .descripcion-post {
     margin: 0 0 20px;
-    color: #666;
+    color: var(--muted-text);
     line-height: 1.6;
   }
 
   .leer {
     font-weight: bold;
-    color: #333;
+    color: var(--text-color);
   }
 
   @media (max-width: 700px) {

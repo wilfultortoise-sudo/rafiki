@@ -4,6 +4,7 @@ description: "Mis primeras experiencias creando un sitio web con Astro."
 pubDate: 2026-09-25
 author: "Rafael"
 image: "../../assets/blog/aprendiendo-con-astro.jpg"
+tags: ["astro", "javascript"]
 ---
 
 # Aprendiendo Astro

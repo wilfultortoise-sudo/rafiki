@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 
-const { title, description, pubDate, author, image } = Astro.props;
+const { title, description, pubDate, author, image, tags } = Astro.props;
 ---
 
 <BaseLayout title={title}>
@@ -26,6 +26,14 @@ const { title, description, pubDate, author, image } = Astro.props;
       alt={title}
       class="imagen-principal"
     />
+
+    {tags && tags.length > 0 && (
+      <div class="tags">
+        {tags.map((tag: string) => (
+          <a href={`/tags/${tag}/`}>#{tag}</a>
+        ))}
+      </div>
+    )}
 
     <hr />
 
@@ -69,5 +77,25 @@ const { title, description, pubDate, author, image } = Astro.props;
 
   .contenido {
     font-size: 1.05rem;
+  }
+
+  .tags {
+    margin: 15px 0;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .tags a {
+    background: var(--tag-bg, #eee);
+    color: var(--tag-text, #333);
+    padding: 4px 10px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+
+  .tags a:hover {
+    opacity: 0.8;
   }
 </style>

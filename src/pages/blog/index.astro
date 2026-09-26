@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const posts = await getCollection("blog");
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout title="Blog">
@@ -15,7 +16,7 @@ const posts = await getCollection("blog");
       posts.map((post: (typeof posts)[number]) => (
         <article>
           <h2>
-            <a href={`/blog/${post.id}/`}>
+            <a href={`${base}blog/${post.id}/`}>
               {post.data.title}
             </a>
           </h2>
@@ -40,8 +41,10 @@ const posts = await getCollection("blog");
 
   article {
     padding: 20px;
-    border: 1px solid #ddd;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: 8px;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
   }
 
   h2 {
@@ -49,6 +52,7 @@ const posts = await getCollection("blog");
   }
 
   h2 a {
+    color: var(--text-color);
     text-decoration: none;
   }
 

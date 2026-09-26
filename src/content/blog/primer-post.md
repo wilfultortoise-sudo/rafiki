@@ -4,6 +4,7 @@ description: "Mi primera publicación creada con Astro."
 pubDate: 2026-09-25
 author: "Rafael"
 image: "../../assets/blog/primer-post.jpg"
+tags: ["astro", "javascript"]
 ---
 
 # Mi primer post

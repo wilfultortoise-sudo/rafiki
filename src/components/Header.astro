@@ -1,20 +1,41 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+
 <header>
   <div class="contenedor">
-    <a href="/" class="logo">Mi Blog</a>
+    <a href={base} class="logo">Mi Blog</a>
 
     <nav>
-      <a href="/">Inicio</a>
-      <a href="/blog/">Blog</a>
-      <a href="/about/">Sobre mí</a>
+      <a href={base}>Inicio</a>
+      <a href={`${base}blog/`}>Blog</a>
+      <a href={`${base}about/`}>Sobre mí</a>
+      
+      <button id="theme-toggle" aria-label="Cambiar tema">tema</button>
+
+      <script is:inline>
+        document.getElementById('theme-toggle')?.addEventListener('click', () => {
+          const html = document.documentElement;
+          const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          html.setAttribute('data-theme', next);
+          localStorage.setItem('theme', next);
+        });
+      </script>
     </nav>
   </div>
 </header>
 
 <style>
+  
   header {
-    background: white;
-    border-bottom: 1px solid #ddd;
-  }
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--header-border);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+nav a {
+  color: var(--text-color);
+}
 
   .contenedor {
     max-width: 1000px;
