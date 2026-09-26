@@ -1,0 +1,58 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const posts = await getCollection("blog");
+---
+
+<BaseLayout title="Blog">
+  <h1>Blog</h1>
+
+  <p>Mis publicaciones más recientes.</p>
+
+  <section>
+    {
+      posts.map((post: (typeof posts)[number]) => (
+        <article>
+          <h2>
+            <a href={`/blog/${post.id}/`}>
+              {post.data.title}
+            </a>
+          </h2>
+
+          <p>{post.data.description}</p>
+
+          <small>
+            {post.data.pubDate.toLocaleDateString("es-MX")}
+          </small>
+        </article>
+      ))
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  section {
+    display: grid;
+    gap: 25px;
+    margin-top: 30px;
+  }
+
+  article {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+
+  h2 {
+    margin-top: 0;
+  }
+
+  h2 a {
+    text-decoration: none;
+  }
+
+  h2 a:hover {
+    text-decoration: underline;
+  }
+</style>
